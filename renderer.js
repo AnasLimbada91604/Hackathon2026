@@ -23,58 +23,73 @@ function formatTime() {
   return new Date().toLocaleTimeString();
 }
 
-function getTriage(hr, spo2) {
-  if (spo2 < 90 || hr > 130 || hr < 45) return "red";
-  if (spo2 < 95 || hr > 110 || hr < 55) return "yellow";
+function getTriage(hr, spo2, pi) {
+  if (spo2 <= 90 || hr >= 160 || hr <= 30 || pi < 1) return "red";
+  if (spo2 <= 94 || hr >= 130 || hr <= 50 || pi <= 7) return "yellow";
   return "green";
 }
 
 function updateMainCard(hr, spo2, pi, motion, batteryLevel) {
   heartRateEl.innerHTML = `${hr} <span>BPM</span>`;
   spo2El.innerHTML = `${spo2} <span>%</span>`;
-  piEl.textContent = pi.toFixed(1);
+  piEl.innerHTML = `${pi} <span>%</span>`;
   motionEl.textContent = motion;
   batteryEl.textContent = `${batteryLevel}%`;
   lastUpdatedEl.textContent = formatTime();
 
-  const triage = getTriage(hr, spo2);
+  const triage = getTriage(hr, spo2, pi);
 
   triageEl.className = "triage-badge";
   alertBannerEl.className = "alert-banner";
 
   if (triage === "red") {
     triageEl.classList.add("triage-red");
-    triageEl.textContent = "RED - Immediate";
+    triageEl.textContent = "RED - IMMEDIATE";
     alertBannerEl.classList.add("alert-critical");
-    alertBannerEl.textContent = "Critical alert: responder attention needed now";
+    alertBannerEl.textContent = "Critical alert: Responder attention needed NOW!";
   } else if (triage === "yellow") {
     triageEl.classList.add("triage-yellow");
-    triageEl.textContent = "YELLOW - Delayed";
-    alertBannerEl.textContent = "Warning: patient vitals need closer monitoring";
+    triageEl.textContent = "YELLOW - MODERATE";
+    alertBannerEl.classList.add("alert-moderate");
+    alertBannerEl.textContent = "Warning: Patient vitals need closer monitoring.";
   } else {
     triageEl.classList.add("triage-green");
-    triageEl.textContent = "GREEN - Minor";
-    alertBannerEl.textContent = "No active critical alerts";
+    triageEl.textContent = "GREEN - MINOR";
+    alertBannerEl.classList.add("alert-good")
+    alertBannerEl.textContent = "No active critical alerts.";
   }
 }
 
 function generateVitals(mode) {
   let hr, spo2, pi, motion;
 
+   hr = Math.floor(Math.random() * (180 - 25) + 25);
+   spo2 = Math.floor(Math.random() * (100 - 85) + 85);
+   pi = Math.floor(Math.random() * (10 - 3) + 3);
+
+   /*hr = 120
+   spo2 = 95
+   pi = 10*/
+
+
+  if((hr >= 160 || hr <= 30) || (spo2 <= 90) || (pi < 1)) {
+    mode = "critical";
+  } else if((hr >= 130 || hr <= 50) || ( spo2 <= 94) || (pi <= 7)) {
+    mode = "warning";
+  } else {
+    mode = "normal";
+  }
   if (mode === "critical") {
-    hr = Math.floor(Math.random() * 25) + 120;
-    spo2 = Math.floor(Math.random() * 5) + 85;
-    pi = Math.random() * 1.2 + 0.6;
     motion = Math.random() > 0.5 ? "Movement detected" : "Unstable";
   } else if (mode === "warning") {
-    hr = Math.floor(Math.random() * 20) + 95;
+    /* hr = Math.floor(Math.random() * 20) + 95;
     spo2 = Math.floor(Math.random() * 4) + 91;
-    pi = Math.random() * 1.5 + 1.3;
+    pi = Math.random() * 1.5 + 1.3; */
     motion = Math.random() > 0.7 ? "Movement detected" : "Stable";
   } else {
-    hr = Math.floor(Math.random() * 25) + 70;
+   /* hr = Math.floor(Math.random() * 25) + 70;
     spo2 = Math.floor(Math.random() * 4) + 96;
-    pi = Math.random() * 2 + 2.0;
+    pi = Math.random() * 2 + 2.0;*/
     motion = Math.random() > 0.82 ? "Movement detected" : "Stable";
   }
 
@@ -107,7 +122,7 @@ function tickAllPatients() {
     const vitals = generateVitals(patient.mode);
     patient.latest = vitals;
 
-    const triage = getTriage(vitals.hr, vitals.spo2);
+    const triage = getTriage(vitals.hr, vitals.spo2, vitals.pi);
     updateSidebarBadge(button, triage);
 
     if (key === selectedPatient) {

@@ -393,6 +393,19 @@ body {
   color: #c6d4ea;
   font-weight: 600;
 }
+.alert-good {
+  background: rgba(2, 169, 2, 0.193);
+  border: 1px solid rgb(26, 128, 21);
+  color: #6aff00;
+  animation: redPulse 1.2s infinite;
+}
+
+.alert-moderate {
+  background: rgba(255, 217, 0, 0.193);
+  border: 1px solid rgb(205, 226, 11);
+  color: #edc111;
+  animation: redPulse 1.2s infinite;
+}
 
 .alert-critical {
   background: rgba(248, 113, 113, 0.14);

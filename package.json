@@ -1,11 +1,11 @@
 {
-  "name": "MaxMod",
-  "productName": "MaxMod",
+  "name": "Hackathon2026",
+  "productName": "Hackathon2026",
   "description": "My Electron application description",
   "keywords": [],
   "main": "./main.js",
   "version": "1.0.0",
-  "author": "Anas",
+  "author": "Safeer",
   "scripts": {
     "start": "electron ."
   },
