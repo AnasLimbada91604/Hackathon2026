@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <!-- Security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+
+    <title>MaxMod</title>
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <div class="header">
+      <h1>MaxMod</h1>
+      <div class="status">Connected ●</div>
+    </div>
+
+    <div class="container">
+
+      <div class="card">
+        <h2>Heart Rate</h2>
+        <p id="heartRate">-- BPM</p>
+      </div>
+
+      <div class="card">
+        <h2>SpO₂</h2>
+        <p id="spo2">-- %</p>
+      </div>
+
+    </div>
+
+    <!-- Electron renderer -->
+    <script src="./renderer.js"></script>
+
+  </body>
+</html>
