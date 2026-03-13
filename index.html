@@ -10,38 +10,119 @@
   <body>
     <div class="header">
       <div class="brand">
-        <div class="logo-mark">M</div>
         <div class="logo-text">
           <h1>MaxMod</h1>
-          <p>Live Patient Vitals</p>
+          <p>Live Triage Monitor</p>
         </div>
       </div>
 
-      <div class="status">
-        <span class="dot"></span>
-        Connected
+      <div class="header-right">
+        <div class="status">
+          <span class="dot"></span>
+          Connected
+        </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="card hr-card">
-        <div class="card-top">
-          <h2>Heart Rate</h2>
-          <span class="badge">LIVE</span>
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>Patients</h2>
+          <p>Active feed</p>
         </div>
-        <p id="heartRate">-- BPM</p>
-        <div class="mini-line"></div>
-      </div>
 
-      <div class="card spo2-card">
-        <div class="card-top">
-          <h2>SpO₂</h2>
-          <span class="badge">LIVE</span>
+        <div class="patient-list">
+          <button class="patient-item active" data-patient="A">
+            <div>
+              <div class="patient-name">Patient A</div>
+              <div class="patient-meta">Primary view</div>
+            </div>
+            <span class="mini-triage triage-green-lite">GREEN</span>
+          </button>
+
+          <button class="patient-item" data-patient="B">
+            <div>
+              <div class="patient-name">Patient B</div>
+              <div class="patient-meta">Remote unit</div>
+            </div>
+            <span class="mini-triage triage-yellow-lite">YELLOW</span>
+          </button>
+
+          <button class="patient-item" data-patient="C">
+            <div>
+              <div class="patient-name">Patient C</div>
+              <div class="patient-meta">Remote unit</div>
+            </div>
+            <span class="mini-triage triage-red-lite">RED</span>
+          </button>
+
+          <button class="patient-item" data-patient="D">
+            <div>
+              <div class="patient-name">Patient D</div>
+              <div class="patient-meta">Remote unit</div>
+            </div>
+            <span class="mini-triage triage-green-lite">GREEN</span>
+          </button>
         </div>
-        <p id="spo2">-- %</p>
-        <div class="mini-line"></div>
-      </div>
-    </div>
+      </aside>
+
+      <section class="main-panel">
+        <section class="main-card">
+          <div class="card-header">
+            <div>
+              <h2 id="mainPatientName">Patient A</h2>
+              <p class="subtext">Real-time vitals stream</p>
+            </div>
+            <div class="triage-badge triage-green" id="triageStatus">GREEN - Minor</div>
+          </div>
+
+          <div class="vitals-grid">
+            <div class="vital-box hr-box">
+              <span class="label">Heart Rate</span>
+              <div class="value" id="heartRate">-- <span>BPM</span></div>
+            </div>
+
+            <div class="vital-box spo2-box">
+              <span class="label">SpO₂</span>
+              <div class="value" id="spo2">-- <span>%</span></div>
+            </div>
+          </div>
+
+          <div class="waveform-section">
+            <div class="section-title">PPG Waveform</div>
+            <div class="waveform">
+              <div class="wave-line"></div>
+            </div>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Perfusion Index</span>
+              <span class="info-value" id="pi">--</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Motion</span>
+              <span class="info-value" id="motion">Stable</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Battery</span>
+              <span class="info-value" id="battery">--%</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Last Updated</span>
+              <span class="info-value" id="lastUpdated">--</span>
+            </div>
+          </div>
+
+          <div class="alert-banner" id="alertBanner">
+            No active critical alerts
+          </div>
+        </section>
+      </section>
+    </main>
 
     <script src="./renderer.js"></script>
   </body>
